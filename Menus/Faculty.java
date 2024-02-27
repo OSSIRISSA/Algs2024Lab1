@@ -1,5 +1,7 @@
 package Menus;
 
+import utils.ArrayActions;
+
 public class Faculty extends University{
 
     private Cathedra[] cathedra = new Cathedra[2];
@@ -13,7 +15,7 @@ public class Faculty extends University{
 
     @Override
     protected void interaction() {
-        System.out.println("Faculty menu "+name);
+        ArrayActions.printStringCool("Faculty menu "+name,5);
         cathedra[0].interaction();
     }
 }

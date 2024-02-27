@@ -1,6 +1,7 @@
 package Menus;
 
 import Humans.*;
+import utils.ArrayActions;
 
 public class Cathedra extends Faculty{
 
@@ -12,6 +13,6 @@ public class Cathedra extends Faculty{
 
     @Override
     protected void interaction() {
-        System.out.println("Cathedra menu "+name);
+        ArrayActions.printStringCool("Cathedra menu "+name,5);
     }
 }
