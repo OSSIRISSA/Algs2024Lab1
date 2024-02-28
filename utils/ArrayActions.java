@@ -4,6 +4,11 @@ import java.lang.reflect.Array;
 
 public class ArrayActions {
 
+    private final static String RESET = "\u001B[0m";
+    private final static String RED = "\u001B[31m";
+    String GREEN = "\u001B[32m";
+    String YELLOW = "\u001B[33m";
+
     public static void printStringCool(String input, int margin){
 
         String[] lines = input.split("\n");
@@ -15,17 +20,15 @@ public class ArrayActions {
             }
         }
 
-        System.out.print("/");
-        for (int i=0; i<maxLength+margin*2; i++){
-            System.out.print("‾");
+        System.out.print("╔═"+RED+"[===]"+RESET);
+        for (int i=0; i<Math.max(maxLength+margin*2-12,1); i++){
+            System.out.print("═");
         }
-        System.out.println("\\");
+        System.out.println(RED+"[===]"+RESET+"═╗");
 
         for (String line : lines) {
-            System.out.print("|");
+            System.out.print("║");
             int leftPartOfSpaces = (maxLength - line.length()) / 2 + margin;
-            //System.out.println(leftPartOfSpaces);
-            //System.out.println(line.length());
             for (int j = 0; j < leftPartOfSpaces; j++) {
                 System.out.print(" ");
             }
@@ -33,14 +36,14 @@ public class ArrayActions {
             for (int j = 0; j < maxLength+margin*2-leftPartOfSpaces-line.length(); j++) {
                 System.out.print(" ");
             }
-            System.out.println("|");
+            System.out.println("║");
         }
 
-        System.out.print("\\");
-        for (int i=0; i<maxLength+margin*2; i++){
-            System.out.print("_");
+        System.out.print("╚═"+RED+"[===]"+RESET);
+        for (int i=0; i<Math.max(maxLength+margin*2-12,1); i++){
+            System.out.print("═");
         }
-        System.out.println("/");
+        System.out.println(RED+"[===]"+RESET+"═╝");
     }
 
 
