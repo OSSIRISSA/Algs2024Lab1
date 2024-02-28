@@ -1,5 +1,8 @@
 package utils;
 
+import Menus.Faculty;
+
+import java.io.IOException;
 import java.lang.reflect.Array;
 
 public class ArrayActions {
@@ -10,6 +13,10 @@ public class ArrayActions {
     String YELLOW = "\u001B[33m";
 
     public static void printStringCool(String input, int margin){
+
+
+        //System.out.println("\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n ");
+
 
         String[] lines = input.split("\n");
 

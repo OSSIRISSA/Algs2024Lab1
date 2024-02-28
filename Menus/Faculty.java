@@ -18,4 +18,9 @@ public class Faculty extends University{
         ArrayActions.printStringCool("Faculty menu "+name,5);
         cathedra[0].interaction();
     }
+    public void facultyPrintAllBy(String string, String who, int i) {
+        for(Cathedra cathedra0: cathedra){
+            cathedra0.cathedraPrintAllBy(string, who, i);
+        }
+    }
 }
