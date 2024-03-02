@@ -50,6 +50,8 @@ public class University {
                 this.find();
             } else if (option == optionNumber) {
                 this.change();
+            }else {
+                System.out.println("Wrong option");
             }
         }
     }
@@ -69,6 +71,7 @@ public class University {
                 case 2 -> this.deleteFaculty();
                 case 3 -> this.editFaculty();
                 case 4 -> here = false;
+                default -> System.out.println("Wrong option");
             }
         }
     }
@@ -89,10 +92,12 @@ public class University {
             outputStr.append("\n" + ++optionNumber + ". Back ");
             ArrayActions.printStringCool(outputStr.toString(), 5);
             int option = DataInput.getInt();
-            if (option != optionNumber) {
+            if (option < optionNumber) {
                 faculties[option - 1].name = DataInput.getString("New name for this faculty: ");
-            } else {
+            } else if(option == optionNumber){
                 here = false;
+            }else{
+                System.out.println("Wrong option");
             }
         }
     }
@@ -111,12 +116,15 @@ public class University {
             outputStr.append("\n" + ++optionNumber + ". Back ");
             ArrayActions.printStringCool(outputStr.toString(), 5);
             int option = DataInput.getInt();
-            if (option != optionNumber) {
+            if (option < optionNumber) {
                 Faculty[] copyArray = new Faculty[faculties.length - 1];
-                System.arraycopy(faculties, 0, copyArray, 0, copyArray.length);
+                System.arraycopy(faculties, 0, copyArray, 0, option-1);
+                System.arraycopy(faculties, option, copyArray, option-1, faculties.length-option);
                 faculties = copyArray;
-            } else {
+            } else if(option == optionNumber){
                 here = false;
+            }else{
+                System.out.println("Wrong option");
             }
         }
     }
@@ -149,6 +157,7 @@ public class University {
                     this.printAllBy(DataInput.getString("Search: "), "teacher", 1);
                 }
                 case 3 -> here = false;
+                default -> System.out.println("Wrong option");
             }
 
         }
@@ -171,11 +180,12 @@ public class University {
      */
     private void displayAllStudents() {
         for(int course = 1; course<=4; course++){
-            System.out.println("COURSE 1:");
+            System.out.println("COURSE "+course+":");
             for(Faculty faculty: faculties){
                 faculty.facultyPrintAllBy(String.valueOf(course), "student", 2);
             }
         }
     }
+
 
 }
