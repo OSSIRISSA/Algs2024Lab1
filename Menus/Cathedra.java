@@ -41,7 +41,7 @@ public class Cathedra extends Faculty{
                 }
             }
         }
-        else{
+        else if(Objects.equals(who, "teacher")){
             for(Teacher teacher: teachers) {
                 if (teacher.getName().contains(string)) {
                     System.out.println(teacher);
