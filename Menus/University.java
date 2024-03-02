@@ -10,6 +10,7 @@ import java.io.IOException;
 public class University {
     protected String name;
 
+
     private static Faculty[] faculties;
 
 
