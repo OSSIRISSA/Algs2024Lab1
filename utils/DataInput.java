@@ -43,7 +43,7 @@ public final class DataInput {
         try {
             return Integer.valueOf(s);
         } catch (NumberFormatException e){
-            return getInt("It is not an Integer");
+            return getInt("It is not a number");
         }
     }
 
@@ -55,9 +55,11 @@ public final class DataInput {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Integer value = Integer.valueOf(s);
-        return value;
-
+        try {
+            return Integer.valueOf(s);
+        } catch (NumberFormatException e){
+            return getInt("It is not a number");
+        }
     }
 
     public static Double getDouble(String input){
