@@ -7,6 +7,7 @@ import java.util.Objects;
 
 public class Cathedra extends Faculty{
 
+    private Faculty faculty;
     private Student[] students;
     private Teacher[] teachers;
     public Cathedra(String name) {
@@ -17,6 +18,7 @@ public class Cathedra extends Faculty{
         this.name=name;
         this.students = new Student[students.length];
         System.arraycopy(students, 0, this.students, 0, students.length);
+
         this.teachers = new Teacher[teachers.length];
         System.arraycopy(teachers, 0, this.teachers, 0, teachers.length);
     }
@@ -46,5 +48,22 @@ public class Cathedra extends Faculty{
                 }
             }
         }
+    }
+
+    public void updateData(Faculty faculty) {
+        this.faculty=faculty;
+        for (Student student : students){
+            student.setFaculty(faculty);
+            student.setCathedra(this);
+        }
+        for (Teacher teacher : teachers){
+            teacher.setFaculty(faculty);
+            teacher.setCathedra(this);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

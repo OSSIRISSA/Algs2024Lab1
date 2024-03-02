@@ -14,6 +14,9 @@ public class Faculty extends University{
         this.name=name;
         this.cathedra = new Cathedra[cathedra.length];
         System.arraycopy(cathedra, 0, this.cathedra, 0, cathedra.length);
+        for (Cathedra cathedra1 : cathedra){
+            cathedra1.updateData(this);
+        }
     }
 
     @Override
@@ -24,5 +27,10 @@ public class Faculty extends University{
         for(Cathedra cathedra0: cathedra){
             cathedra0.cathedraPrintAllBy(string, who, i);
         }
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }
