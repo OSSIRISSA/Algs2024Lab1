@@ -118,7 +118,7 @@ public class University {
             ArrayActions.printStringCool(outputStr.toString(), 5);
             int option = DataInput.getInt();
             if (option < optionNumber) {
-                faculties[option-1].deleteFaculty();
+                faculties[option-1].deleteFacultyHumans();
                 Faculty[] copyArray = new Faculty[faculties.length - 1];
                 System.arraycopy(faculties, 0, copyArray, 0, option-1);
                 System.arraycopy(faculties, option, copyArray, option-1, faculties.length-option);

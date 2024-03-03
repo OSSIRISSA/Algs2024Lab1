@@ -7,7 +7,6 @@ import utils.ArrayActions;
 import utils.DataInput;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 public class Faculty extends University{
 
@@ -37,16 +36,20 @@ public class Faculty extends University{
             for (Cathedra cathedra1:cathedra) {
                 outputStr.append("\n" + ++optionNumber + ". Cathedra menu ").append(cathedra1.name);
             }
-            outputStr.append("\n \n" + ++optionNumber + ". Display all students/teachers sorted by alphabet" + "\n" + ++optionNumber + ". Make changes in cathedras");
+            outputStr.append("\n \n" + ++optionNumber + ". Display all students/teachers sorted by alphabet" + "\n" + ++optionNumber + ". Make changes in cathedra" + "\n" + ++optionNumber + ". Back");
             ArrayActions.printStringCool(outputStr.toString(), 5);
 
             int option = DataInput.getInt();
-            if (option <= optionNumber - 2) {
+            if (option <= optionNumber - 3) {
                 cathedra[option - 1].interaction();
-            } else if (option == optionNumber - 1) {
+            } else if (option == optionNumber - 2) {
                 this.displayAllByAlphabet();
-            } else if (option == optionNumber) {
+            } else if (option == optionNumber-1) {
                 this.change();
+            } else if (option == optionNumber) {
+                here = false;
+            } else{
+                System.out.println("Wrong option");
             }
         }
     }
@@ -122,7 +125,7 @@ public class Faculty extends University{
             ArrayActions.printStringCool(outputStr.toString(), 5);
             int option = DataInput.getInt();
             if (option < optionNumber) {
-                cathedra[option-1].deleteCathedra();
+                cathedra[option-1].deleteCathedraHumans();
                 Cathedra[] copyArray = new Cathedra[cathedra.length - 1];
                 System.arraycopy(cathedra, 0, copyArray, 0, option-1);
                 System.arraycopy(cathedra, option, copyArray, option-1, cathedra.length-option);
@@ -171,7 +174,7 @@ public class Faculty extends University{
         }
     }
 
-    public void deleteFaculty(){
+    public void deleteFacultyHumans(){
         for (Student student: students){
             student.setDeleted(true);
         }
