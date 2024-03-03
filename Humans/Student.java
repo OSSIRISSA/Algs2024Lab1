@@ -28,6 +28,6 @@ public class Student extends Human{
 
     @Override
     public String toString() {
-        return super.toString() + ", Course: " + course + ", Group: " + group;
+        return super.toString() + (!isDeleted ? (", Course: " + course + ", Group: " + group+"\n") : "");
     }
 }

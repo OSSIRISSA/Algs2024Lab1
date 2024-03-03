@@ -1,13 +1,19 @@
 package Menus;
 
+import Humans.Human;
+import Humans.Student;
+import Humans.Teacher;
 import utils.ArrayActions;
 import utils.DataInput;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Faculty extends University{
 
     private Cathedra[] cathedra;
+    protected Student[] students=new Student[0];
+    protected Teacher[] teachers=new Teacher[0];
 
     public Faculty(){}
     public Faculty(String name) {
@@ -116,6 +122,7 @@ public class Faculty extends University{
             ArrayActions.printStringCool(outputStr.toString(), 5);
             int option = DataInput.getInt();
             if (option < optionNumber) {
+                cathedra[option-1].deleteCathedra();
                 Cathedra[] copyArray = new Cathedra[cathedra.length - 1];
                 System.arraycopy(cathedra, 0, copyArray, 0, option-1);
                 System.arraycopy(cathedra, option, copyArray, option-1, cathedra.length-option);
@@ -145,22 +152,31 @@ public class Faculty extends University{
         while (here) {
             ArrayActions.printStringCool("Display \n 1. Students \n 2. Teachers \n \n 3. Back", 5);
             int option = DataInput.getInt();
-            String who = null;
             switch (option) {
                 case 1 -> {
-                    who = "student";
+                    Human.sortByNameUp(students);
+                    for (Student student : students){
+                        System.out.print(student);
+                    }
                 }
                 case 2 -> {
-                    who = "teacher";
+                    Human.sortByNameUp(teachers);
+                    for (Teacher teacher : teachers){
+                        System.out.print(teacher);
+                    }
                 }
                 case 3 -> here=false;
                 default -> System.out.println("Wrong option");
             }
-            for (char letter = 'A'; letter <= 'Z'; letter++) {
-                for (Cathedra cathedra0 : cathedra) {
-                    cathedra0.cathedraPrintAllBy(String.valueOf(letter), who, 1);
-                }
-            }
+        }
+    }
+
+    public void deleteFaculty(){
+        for (Student student: students){
+            student.setDeleted(true);
+        }
+        for (Teacher teacher: teachers){
+            teacher.setDeleted(true);
         }
     }
 

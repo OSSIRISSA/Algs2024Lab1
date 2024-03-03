@@ -8,6 +8,6 @@ public class Teacher extends Human{
 
     @Override
     public String toString() {
-        return super.toString();
+        return super.toString()+(!isDeleted ? ("\n") : "");
     }
 }

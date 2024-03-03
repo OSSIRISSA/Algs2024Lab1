@@ -112,12 +112,13 @@ public class University {
             StringBuilder outputStr = new StringBuilder("Choose faculty you want to delete " + name);
             int optionNumber = 0;
             for (Faculty faculty : faculties) {
-                outputStr.append("\n" + ++optionNumber + ". Faculty ").append(faculty.name);
+                outputStr.append("\n").append(++optionNumber).append(". Faculty ").append(faculty.name);
             }
-            outputStr.append("\n" + ++optionNumber + ". Back ");
+            outputStr.append("\n").append(++optionNumber).append(". Back ");
             ArrayActions.printStringCool(outputStr.toString(), 5);
             int option = DataInput.getInt();
             if (option < optionNumber) {
+                faculties[option-1].deleteFaculty();
                 Faculty[] copyArray = new Faculty[faculties.length - 1];
                 System.arraycopy(faculties, 0, copyArray, 0, option-1);
                 System.arraycopy(faculties, option, copyArray, option-1, faculties.length-option);

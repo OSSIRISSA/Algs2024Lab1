@@ -3,6 +3,7 @@ package Menus;
 import Humans.*;
 import utils.ArrayActions;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Cathedra extends Faculty{
@@ -31,20 +32,20 @@ public class Cathedra extends Faculty{
         if(Objects.equals(who, "student")){
             for(Student student: students){
                 if((i==1)&&(student.getName().contains(string))){
-                    System.out.println(student);
+                    System.out.print(student);
                 }
                 else if((i==2)&&(Objects.equals(student.getCourse(), Integer.valueOf(string)))){
-                    System.out.println(student);
+                    System.out.print(student);
                 }
                 else if((i==3)&&(Objects.equals(student.getGroup(), Integer.valueOf(string)))){
-                    System.out.println(student);
+                    System.out.print(student);
                 }
             }
         }
         else if(Objects.equals(who, "teacher")){
             for(Teacher teacher: teachers) {
                 if (teacher.getName().contains(string)) {
-                    System.out.println(teacher);
+                    System.out.print(teacher);
                 }
             }
         }
@@ -55,10 +56,21 @@ public class Cathedra extends Faculty{
         for (Student student : students){
             student.setFaculty(faculty);
             student.setCathedra(this);
+            this.faculty.students=ArrayActions.append(this.faculty.students, student);
         }
         for (Teacher teacher : teachers){
             teacher.setFaculty(faculty);
             teacher.setCathedra(this);
+            this.faculty.teachers=ArrayActions.append(this.faculty.teachers, teacher);
+        }
+    }
+
+    public void deleteCathedra(){
+        for (Student student: students){
+            student.setDeleted(true);
+        }
+        for (Teacher teacher: teachers){
+            teacher.setDeleted(true);
         }
     }
 

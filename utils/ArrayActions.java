@@ -1,5 +1,6 @@
 package utils;
 
+import Humans.Student;
 import Menus.Faculty;
 
 import java.io.IOException;
