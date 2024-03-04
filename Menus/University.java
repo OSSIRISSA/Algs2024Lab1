@@ -34,7 +34,7 @@ public class University {
     protected void interaction() throws IOException {
         boolean here = true;
         while (here) {
-            StringBuilder outputStr = new StringBuilder("University menu " + name);
+            StringBuilder outputStr = new StringBuilder(" University menu " + name);
             int optionNumber = 0;
             for (Faculty faculty : faculties) {
                 outputStr.append("\n" + ++optionNumber + ". Faculty menu ").append(faculty.name);
@@ -60,7 +60,7 @@ public class University {
     /**
      * 1
      *
-     * @throws IOException
+     * @throws IOException - exception
      */
     private void change() throws IOException {
         boolean here = true;
@@ -80,7 +80,7 @@ public class University {
     /**
      * (1) editFaculty
      *
-     * @throws IOException
+     * @throws IOException - exception
      */
     private void editFaculty() throws IOException {
         boolean here = true;
@@ -133,7 +133,6 @@ public class University {
 
     /**
      * (1) addNewFaculty
-     *
      * @throws IOException - exception
      */
     private void addNewFaculty() throws IOException {

@@ -73,7 +73,7 @@ public class Faculty extends University{
     /**
      * 2
      *
-     * @throws IOException
+     * @throws IOException - exception
      */
     private void change() throws IOException {
         boolean here = true;
@@ -93,7 +93,7 @@ public class Faculty extends University{
     /**
      * (2) editCathedra
      *
-     * @throws IOException
+     * @throws IOException - exception
      */
     private void editCathedra() throws IOException {
         boolean here = true;
