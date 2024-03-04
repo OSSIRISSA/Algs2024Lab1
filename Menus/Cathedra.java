@@ -15,6 +15,8 @@ public class Cathedra extends Faculty {
 
     public Cathedra(String name) {
         this.name = name;
+        this.students = new Student[0];
+        this.teachers = new Teacher[0];
     }
 
     public Cathedra(String name, Student[] students, Teacher[] teachers) {
@@ -30,10 +32,8 @@ public class Cathedra extends Faculty {
     protected void interaction() throws IOException {
         boolean here = true;
         while (here) {
-            StringBuilder outputStr = new StringBuilder("Cathedra " + this.name + " menu");
             int optionNumber = 0;
-            outputStr.append("\n \n" + ++optionNumber + ". Display all students sorted by course" + "\n" + ++optionNumber + ". Display all students/teachers sorted by alphabet" + "\n" + ++optionNumber + ". Display all students of any course sorted by alphabet" + "\n" + ++optionNumber + ". Make changes in humans" + "\n" + ++optionNumber + ". Back");
-            ArrayActions.printStringCool(outputStr.toString(), 5);
+            ArrayActions.printStringCool("Cathedra " + this.name + " menu" + "\n \n" + ++optionNumber + ". Display all students sorted by course" + "\n" + ++optionNumber + ". Display all students/teachers sorted by alphabet" + "\n" + ++optionNumber + ". Display all students of any course sorted by alphabet" + "\n" + ++optionNumber + ". Make changes in humans" + "\n" + ++optionNumber + ". Back", 5);
             int option = DataInput.getInt();
             switch (option) {
                 case 1 -> this.displayAll();
@@ -237,7 +237,7 @@ public class Cathedra extends Faculty {
     private void addHuman(String who) throws IOException {
         if (who.equals("student")) {
             String newName;
-            boolean ok = false;
+            boolean ok;
             do {
                 newName = DataInput.getString("New student name: ");
                 ok = true;
@@ -262,11 +262,11 @@ public class Cathedra extends Faculty {
                 if (newGroup < 1 || newGroup > 6) System.out.println("Please, select group from 1 to 6.");
             } while (newGroup < 1 || newGroup > 6);
 
-            students = ArrayActions.append(students, new Student(newName, newCourse, newGroup));
+            students = (Student[]) ArrayActions.append(students, new Student(newName, newCourse, newGroup).setFaculty(this.faculty).setCathedra(this));
         } else {
 
             String newName;
-            boolean ok = false;
+            boolean ok;
             do {
                 newName = DataInput.getString("New teacher name: ");
                 ok = true;
@@ -279,7 +279,7 @@ public class Cathedra extends Faculty {
                 if (!ok) System.out.println("Please, type correct name");
             } while (!ok);
 
-            teachers = ArrayActions.append(teachers, new Teacher(newName));
+            teachers = (Teacher[]) ArrayActions.append(teachers, new Teacher(newName).setFaculty(this.faculty).setCathedra(this));
         }
     }
 
@@ -296,9 +296,9 @@ public class Cathedra extends Faculty {
                 StringBuilder outputStr = new StringBuilder("Choose student you want to change in " + name);
                 int optionNumber = 0;
                 for (Student student : students) {
-                    outputStr.append("\n" + ++optionNumber + ". ").append(student);
+                    outputStr.append("\n").append(++optionNumber).append(". ").append(student);
                 }
-                outputStr.append("\n" + ++optionNumber + ". Back ");
+                outputStr.append("\n").append(++optionNumber).append(". Back ");
                 ArrayActions.printStringCool(outputStr.toString(), 5);
                 int option = DataInput.getInt();
                 if ((option < optionNumber) && (option > 0)) {
@@ -309,7 +309,7 @@ public class Cathedra extends Faculty {
                         switch (whatToChange) {
                             case 1 -> {
                                 String newName;
-                                boolean ok = false;
+                                boolean ok;
                                 do {
                                     newName = DataInput.getString("New name for this student: ");
                                     ok = true;
@@ -352,14 +352,14 @@ public class Cathedra extends Faculty {
                 StringBuilder outputStr = new StringBuilder("Choose teacher you want to change in " + name);
                 int optionNumber = 0;
                 for (Teacher teacher : teachers) {
-                    outputStr.append("\n" + ++optionNumber + ". ").append(teacher);
+                    outputStr.append("\n").append(++optionNumber).append(". ").append(teacher);
                 }
-                outputStr.append("\n" + ++optionNumber + ". Back ");
+                outputStr.append("\n").append(++optionNumber).append(". Back ");
                 ArrayActions.printStringCool(outputStr.toString(), 5);
                 int option = DataInput.getInt();
                 if ((option < optionNumber) && (option > 0)) {
                     String newName;
-                    boolean ok = false;
+                    boolean ok;
                     do {
                         newName = DataInput.getString("New name for this teacher: ");
                         ok = true;
