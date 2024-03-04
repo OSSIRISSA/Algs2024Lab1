@@ -262,7 +262,17 @@ public class Cathedra extends Faculty {
                 if (newGroup < 1 || newGroup > 6) System.out.println("Please, select group from 1 to 6.");
             } while (newGroup < 1 || newGroup > 6);
 
-            students = ArrayActions.append(students, new Student(newName, newCourse, newGroup));
+            if(findIdenticalStudent(newName,newCourse,newGroup)){
+                ArrayActions.printStringCool(" Identical student found. Are you sure you want to add this one? \n 1. Yes \n 2. No ", 5);
+                int variant = DataInput.getInt();
+                switch (variant){
+                    case 1 -> students = ArrayActions.append(students, new Student(newName, newCourse, newGroup));
+                    case 2 -> {}
+                    default -> System.out.println("Wrong option");
+                }
+            }else{
+                students = ArrayActions.append(students, new Student(newName, newCourse, newGroup));
+            }
         } else {
 
             String newName;
@@ -279,7 +289,17 @@ public class Cathedra extends Faculty {
                 if (!ok) System.out.println("Please, type correct name");
             } while (!ok);
 
-            teachers = ArrayActions.append(teachers, new Teacher(newName));
+            if(findIdenticalTeacher(newName)){
+                ArrayActions.printStringCool(" Identical teacher found. Are you sure you want to add this one? \n 1. Yes \n 2. No ", 5);
+                int variant = DataInput.getInt();
+                switch (variant){
+                    case 1 -> teachers = ArrayActions.append(teachers, new Teacher(newName));
+                    case 2 -> {}
+                    default -> System.out.println("Wrong option");
+                }
+            }else{
+                teachers = ArrayActions.append(teachers, new Teacher(newName));
+            }
         }
     }
 
@@ -321,7 +341,18 @@ public class Cathedra extends Faculty {
                                     }
                                     if (!ok) System.out.println("Please, type correct name");
                                 } while (!ok);
-                                students[option - 1].setName(newName);
+
+                                if(findIdenticalStudent(newName,students[option - 1].getCourse(),students[option - 1].getGroup())){
+                                    ArrayActions.printStringCool(" Identical student found. Are you sure you want to change this field? \n 1. Yes \n 2. No ", 5);
+                                    int variant = DataInput.getInt();
+                                    switch (variant){
+                                        case 1 -> students[option - 1].setName(newName);
+                                        case 2 -> {}
+                                        default -> System.out.println("Wrong option");
+                                    }
+                                }else{
+                                    students[option - 1].setName(newName);
+                                }
                             }
                             case 2 -> {
                                 int newCourse;
@@ -329,7 +360,19 @@ public class Cathedra extends Faculty {
                                     newCourse = DataInput.getInt("New course for this student: ");
                                     if (newCourse < 1 || newCourse > 4) System.out.println("Please, select course from 1 to 4.");
                                 } while (newCourse < 1 || newCourse > 4);
-                                students[option - 1].setCourse(newCourse);
+
+                                if(findIdenticalStudent(students[option - 1].getName(),newCourse,students[option - 1].getGroup())){
+                                    ArrayActions.printStringCool(" Identical student found. Are you sure you want to change this field? \n 1. Yes \n 2. No ", 5);
+                                    int variant = DataInput.getInt();
+                                    switch (variant){
+                                        case 1 -> students[option - 1].setCourse(newCourse);
+                                        case 2 -> {}
+                                        default -> System.out.println("Wrong option");
+                                    }
+                                }else{
+                                    students[option - 1].setCourse(newCourse);
+                                }
+
                             }
                             case 3 -> {
                                 int newGroup;
@@ -337,7 +380,19 @@ public class Cathedra extends Faculty {
                                     newGroup = DataInput.getInt("New group for this student: ");
                                     if (newGroup < 1 || newGroup > 6) System.out.println("Please, select group from 1 to 6.");
                                 } while (newGroup < 1 || newGroup > 6);
-                                students[option - 1].setGroup(newGroup);
+
+                                if(findIdenticalStudent(students[option - 1].getName(),students[option - 1].getCourse(),newGroup)){
+                                    ArrayActions.printStringCool(" Identical student found. Are you sure you want to change this field? \n 1. Yes \n 2. No ", 5);
+                                    int variant = DataInput.getInt();
+                                    switch (variant){
+                                        case 1 -> students[option - 1].setGroup(newGroup);
+                                        case 2 -> {}
+                                        default -> System.out.println("Wrong option");
+                                    }
+                                }else{
+                                    students[option - 1].setGroup(newGroup);
+                                }
+
                             }
                             case 4 -> here2 = false;
                             default -> System.out.println("Wrong option");
@@ -372,7 +427,19 @@ public class Cathedra extends Faculty {
                         if (!ok) System.out.println("Please, type correct name");
                     } while (!ok);
 
-                    teachers[option - 1].setName(newName);
+                    if(findIdenticalTeacher(newName)){
+                        ArrayActions.printStringCool(" Identical teacher found. Are you sure you want to change this field? \n 1. Yes \n 2. No ", 5);
+                        int variant = DataInput.getInt();
+                        switch (variant){
+                            case 1 -> teachers[option - 1].setName(newName);
+                            case 2 -> {}
+                            default -> System.out.println("Wrong option");
+                        }
+                    }else{
+                        teachers[option - 1].setName(newName);
+                    }
+
+
                 } else if (option == optionNumber) {
                     here = false;
                 } else {
@@ -432,6 +499,24 @@ public class Cathedra extends Faculty {
                 }
             }
         }
+    }
+
+    private boolean findIdenticalStudent(String newName, int newCourse, int newGroup) {
+        for (Student student : students) {
+            if((student.getName().equals(newName))&&(student.getCourse().equals(newCourse))&&(student.getGroup().equals(newGroup))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean findIdenticalTeacher(String newName) {
+        for (Teacher teacher:teachers) {
+            if(teacher.getName().equals(newName)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

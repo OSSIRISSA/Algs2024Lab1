@@ -94,7 +94,15 @@ public class University {
             ArrayActions.printStringCool(outputStr.toString(), 5);
             int option = DataInput.getInt();
             if ((option < optionNumber)&& (option>0)) {
-                faculties[option - 1].name = DataInput.getString("New name for this faculty: ");
+
+                String newName = DataInput.getString("New name for this faculty: ");
+                if(findIdenticalFaculty(newName)){
+                    System.out.println("ERROR: Identical faculty found.");
+                }else{
+                    faculties[option - 1].name = newName;
+                }
+
+
             } else if(option == optionNumber){
                 here = false;
             }else{
@@ -136,7 +144,22 @@ public class University {
      * @throws IOException - exception
      */
     private void addNewFaculty() throws IOException {
-        faculties = ArrayActions.append(faculties, new Faculty(DataInput.getString("New faculty name: ")));
+        String newName = DataInput.getString("New faculty name: ");
+        if(findIdenticalFaculty(newName)){
+            System.out.println("ERROR: Identical faculty found.");
+        }else{
+            faculties = ArrayActions.append(faculties, new Faculty(newName));
+        }
+
+    }
+
+    private boolean findIdenticalFaculty(String newName) {
+        for(Faculty faculty:faculties){
+            if(faculty.name.equals(newName)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

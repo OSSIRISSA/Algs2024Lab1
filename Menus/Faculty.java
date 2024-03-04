@@ -107,7 +107,14 @@ public class Faculty extends University{
             ArrayActions.printStringCool(outputStr.toString(), 5);
             int option = DataInput.getInt();
             if ((option < optionNumber)&& (option>0)) {
-                cathedra[option - 1].name = DataInput.getString("New name for this cathedra: ");
+
+                String newName = DataInput.getString("New name for this cathedra: ");
+                if(findIdenticalCathedra(newName)){
+                    System.out.println("ERROR: Identical cathedra found.");
+                }else{
+                    cathedra[option - 1].name = newName;
+                }
+
             } else if(option == optionNumber){
                 here = false;
             }else{
@@ -150,7 +157,21 @@ public class Faculty extends University{
      * @throws IOException - exception
      */
     private void addNewCathedra() throws IOException {
-        cathedra = ArrayActions.append(cathedra, new Cathedra(DataInput.getString("New cathedra name: ")));
+        String newName = DataInput.getString("New cathedra name: ");
+        if(findIdenticalCathedra(newName)){
+            System.out.println("ERROR: Identical cathedra found.");
+        }else{
+            cathedra = ArrayActions.append(cathedra, new Cathedra(newName));
+        }
+    }
+
+    private boolean findIdenticalCathedra(String newName) {
+        for(Cathedra cathedra0: cathedra){
+            if(cathedra0.name.equals(newName)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
