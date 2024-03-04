@@ -266,15 +266,14 @@ public class Cathedra extends Faculty {
                 ArrayActions.printStringCool(" Identical student found. Are you sure you want to add this one? \n 1. Yes \n 2. No ", 5);
                 int variant = DataInput.getInt();
                 switch (variant){
-                    case 1 -> students = ArrayActions.append(students, new Student(newName, newCourse, newGroup));
+                    case 1 -> students = (Student[]) ArrayActions.append(students, new Student(newName, newCourse, newGroup).setFaculty(this.faculty).setCathedra(this));
                     case 2 -> {}
                     default -> System.out.println("Wrong option");
                 }
             }else{
-                students = ArrayActions.append(students, new Student(newName, newCourse, newGroup));
+                students = (Student[]) ArrayActions.append(students, new Student(newName, newCourse, newGroup).setFaculty(this.faculty).setCathedra(this));
             }
-            //problems
-            students = (Student[]) ArrayActions.append(students, new Student(newName, newCourse, newGroup).setFaculty(this.faculty).setCathedra(this));
+
         } else {
 
             String newName;
@@ -295,15 +294,14 @@ public class Cathedra extends Faculty {
                 ArrayActions.printStringCool(" Identical teacher found. Are you sure you want to add this one? \n 1. Yes \n 2. No ", 5);
                 int variant = DataInput.getInt();
                 switch (variant){
-                    case 1 -> teachers = ArrayActions.append(teachers, new Teacher(newName));
+                    case 1 -> teachers = (Teacher[]) ArrayActions.append(teachers, new Teacher(newName).setFaculty(this.faculty).setCathedra(this));
                     case 2 -> {}
                     default -> System.out.println("Wrong option");
                 }
             }else{
-                teachers = ArrayActions.append(teachers, new Teacher(newName));
+                teachers = (Teacher[]) ArrayActions.append(teachers, new Teacher(newName).setFaculty(this.faculty).setCathedra(this));
             }
-            //problems
-            teachers = (Teacher[]) ArrayActions.append(teachers, new Teacher(newName).setFaculty(this.faculty).setCathedra(this));
+
         }
     }
 
