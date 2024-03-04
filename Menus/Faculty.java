@@ -5,20 +5,31 @@ import Humans.Student;
 import Humans.Teacher;
 import utils.ArrayActions;
 import utils.DataInput;
-
 import java.io.IOException;
 
 public class Faculty extends University{
-
     private Cathedra[] cathedra;
     protected Student[] students=new Student[0];
     protected Teacher[] teachers=new Teacher[0];
 
     public Faculty(){}
+
+    /**
+     * Constructor
+     *
+     * @param name  - Name of the faculty
+     */
     public Faculty(String name) {
         this.name=name;
         this.cathedra = new Cathedra[0];
     }
+
+    /**
+     * Constructor
+     *
+     * @param name      - Name of the faculty
+     * @param cathedra  - Init cathedra
+     */
     public Faculty(String name, Cathedra[] cathedra) {
         this.name=name;
         this.cathedra = new Cathedra[cathedra.length];
@@ -28,6 +39,11 @@ public class Faculty extends University{
         }
     }
 
+    /**
+     * Faculty menu method
+     *
+     * @throws IOException  - GetString exception
+     */
     @Override
     protected void interaction() throws IOException {
         boolean here = true;
@@ -54,6 +70,14 @@ public class Faculty extends University{
             }
         }
     }
+
+    /**
+     * printAllBy       - Faculty
+     *
+     * @param string    - search request
+     * @param who       - student/teacher
+     * @param i         - 1.name/2.course/3.group
+     */
     public boolean facultyPrintAllBy(String string, String who, int i) {
         boolean res = false;
         for(Cathedra cathedra0: cathedra){
@@ -66,13 +90,8 @@ public class Faculty extends University{
         return res;
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
     /**
-     * 2
+     * 2 point from list
      *
      * @throws IOException - exception
      */
@@ -166,6 +185,12 @@ public class Faculty extends University{
         }
     }
 
+    /**
+     * Find Identical Cathedra
+     *
+     * @param newName   - Name of a new cathedra
+     * @return          - is found?
+     */
     private boolean findIdenticalCathedra(String newName) {
         for(Cathedra cathedra0: cathedra){
             if(cathedra0.name.equals(newName)){
@@ -176,7 +201,7 @@ public class Faculty extends University{
     }
 
     /**
-     * 6
+     * 6 point from list
      */
     private void displayAllByAlphabet() {
         boolean here = true;
@@ -216,6 +241,9 @@ public class Faculty extends University{
         }
     }
 
+    /**
+     * Delete humans from several faculty
+     */
     public void deleteFacultyHumans(){
         for (Student student: students){
             student.setDeleted(true);
@@ -225,4 +253,8 @@ public class Faculty extends University{
         }
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

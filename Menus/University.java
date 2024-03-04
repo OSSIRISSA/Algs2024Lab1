@@ -4,7 +4,6 @@ import Humans.Student;
 import Humans.Teacher;
 import utils.ArrayActions;
 import utils.DataInput;
-
 import java.io.IOException;
 
 public class University {
@@ -15,6 +14,12 @@ public class University {
     }
     public University() {}
 
+    /**
+     * Main method in main class
+     *
+     * @param args          - Arguments
+     * @throws IOException  - GetString exception
+     */
     public static void main(String[] args) throws IOException {
         University kma = new University("KMA");
         faculties = new Faculty[3];
@@ -24,26 +29,33 @@ public class University {
         kma.interaction();
     }
 
-
+    /**
+     * Main menu method
+     *
+     * @throws IOException  - GetString exception
+     */
     protected void interaction() throws IOException {
-        while (true){
+        boolean here = true;
+        while (here){
             StringBuilder outputStr = new StringBuilder(" University menu " + name);
             int optionNumber = 0;
             for (Faculty faculty : faculties) {
                 outputStr.append("\n").append(++optionNumber).append(". Faculty menu ").append(faculty.name);
             }
-            outputStr.append("\n \n").append(++optionNumber).append(". Display all students sorted by course").append("\n").append(++optionNumber).append(". Find a student/teacher").append("\n").append(++optionNumber).append(". Make changes in faculties");
+            outputStr.append("\n \n").append(++optionNumber).append(". Display all students sorted by course").append("\n").append(++optionNumber).append(". Find a student/teacher").append("\n").append(++optionNumber).append(". Make changes in faculties").append("\n").append(++optionNumber).append(". Exit program");
             ArrayActions.printStringCool(outputStr.toString(), 5);
 
             int option = DataInput.getInt();
             if ((option <= optionNumber - 3) && (option>0)) {
                 faculties[option - 1].interaction();
-            } else if (option == optionNumber - 2) {
+            } else if (option == optionNumber - 3) {
                 this.displayAllStudents();
-            } else if (option == optionNumber - 1) {
+            } else if (option == optionNumber - 2) {
                 this.find();
-            } else if (option == optionNumber) {
+            } else if (option == optionNumber - 1) {
                 this.change();
+            }else if (option == optionNumber) {
+                here = false;
             }else {
                 System.out.println("Wrong option");
             }
@@ -51,7 +63,7 @@ public class University {
     }
 
     /**
-     * 1
+     * 1 point from list
      *
      * @throws IOException - exception
      */
@@ -146,6 +158,12 @@ public class University {
 
     }
 
+    /**
+     * Find Identical Faculty
+     *
+     * @param newName   - Name of a new cathedra
+     * @return          - is found?
+     */
     private boolean findIdenticalFaculty(String newName) {
         for(Faculty faculty:faculties){
             if(faculty.name.equals(newName)){
@@ -156,7 +174,7 @@ public class University {
     }
 
     /**
-     * 4
+     * 4 point from list
      * @throws IOException - exception
      */
     private void find() throws IOException {
@@ -234,7 +252,7 @@ public class University {
     }
 
     /**
-     * 5
+     * 5 point from list
      */
     private void displayAllStudents() {
         for(int course = 1; course<=4; course++){
@@ -242,7 +260,7 @@ public class University {
             System.out.println("COURSE "+course+":");
             for(Faculty faculty: faculties){
                 if(!res){
-                    res = faculty.facultyPrintAllBy(String.valueOf(course), "student", 2);;
+                    res = faculty.facultyPrintAllBy(String.valueOf(course), "student", 2);
                 } else {
                     faculty.facultyPrintAllBy(String.valueOf(course), "student", 2);
                 }

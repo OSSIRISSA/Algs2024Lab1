@@ -8,17 +8,28 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Cathedra extends Faculty {
-
     private Faculty faculty;
     private Student[] students;
     private Teacher[] teachers;
 
+    /**
+     * Constructor
+     *
+     * @param name  - Name of new Cathedra
+     */
     public Cathedra(String name) {
         this.name = name;
         this.students = new Student[0];
         this.teachers = new Teacher[0];
     }
 
+    /**
+     * Constructor
+     *
+     * @param name      - Name of new Cathedra
+     * @param students  - Array of Students for new Cathedra
+     * @param teachers  - Array of Teachers for new Cathedra
+     */
     public Cathedra(String name, Student[] students, Teacher[] teachers) {
         this.name = name;
         this.students = new Student[students.length];
@@ -28,6 +39,11 @@ public class Cathedra extends Faculty {
         System.arraycopy(teachers, 0, this.teachers, 0, teachers.length);
     }
 
+    /**
+     * Cathedra menu method
+     *
+     * @throws IOException  - GetString exception
+     */
     @Override
     protected void interaction() throws IOException {
         boolean here = true;
@@ -46,6 +62,13 @@ public class Cathedra extends Faculty {
         }
     }
 
+    /**
+     * printAllBy       - Cathedra
+     *
+     * @param string    - search request
+     * @param who       - student/teacher
+     * @param i         - 1.name/2.course/3.group
+     */
     public boolean cathedraPrintAllBy(String string, String who, int i) {
         boolean res = false;
         if (Objects.equals(who, "student")) {
@@ -73,7 +96,7 @@ public class Cathedra extends Faculty {
     }
 
     /**
-     * 7
+     * 7 point from list
      */
     private void displayAll() {
         for (int course = 1; course <= 4; course++) {
@@ -84,6 +107,11 @@ public class Cathedra extends Faculty {
         }
     }
 
+    /**
+     * Updates DB of Cathedra, Students and Teachers on specified Faculty
+     *
+     * @param faculty   - Faculty where to update our data
+     */
     public void updateData(Faculty faculty) {
         this.faculty = faculty;
         for (Student student : students) {
@@ -98,6 +126,9 @@ public class Cathedra extends Faculty {
         }
     }
 
+    /**
+     * Delete humans from several cathedra
+     */
     public void deleteCathedraHumans() {
         for (Student student : students) {
             student.setDeleted(true);
@@ -108,7 +139,7 @@ public class Cathedra extends Faculty {
     }
 
     /**
-     * 8
+     * 8 point from list
      */
     private void displayAllByAlphabet() {
         boolean here = true;
@@ -149,7 +180,7 @@ public class Cathedra extends Faculty {
     }
 
     /**
-     * 9,10
+     * 9,10 point from list
      */
     private void displayAllOfCourse() {
         boolean here = true;
@@ -170,7 +201,7 @@ public class Cathedra extends Faculty {
     }
 
     /**
-     * 3
+     * 3 point from list
      *
      * @throws IOException - exception
      */
@@ -503,6 +534,14 @@ public class Cathedra extends Faculty {
         }
     }
 
+    /**
+     * Find Identical Faculty
+     *
+     * @param newName   - Name of a new cathedra
+     * @param newCourse - Int of a new Course
+     * @param newGroup  - Int of a new Group
+     * @return          - is found?
+     */
     private boolean findIdenticalStudent(String newName, int newCourse, int newGroup) {
         for (Student student : students) {
             if((student.getName().equals(newName))&&(student.getCourse().equals(newCourse))&&(student.getGroup().equals(newGroup))){
@@ -512,6 +551,12 @@ public class Cathedra extends Faculty {
         return false;
     }
 
+    /**
+     * Find Identical Faculty
+     *
+     * @param newName   - Name of a new cathedra
+     * @return          - is found?
+     */
     private boolean findIdenticalTeacher(String newName) {
         for (Teacher teacher:teachers) {
             if(teacher.getName().equals(newName)){

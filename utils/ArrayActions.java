@@ -2,7 +2,6 @@ package utils;
 import java.lang.reflect.Array;
 
 public class ArrayActions {
-
     private final static String RESET = "\u001B[0m";
     private final static String RED = "\u001B[31m";
 
@@ -48,7 +47,6 @@ public class ArrayActions {
         }
         System.out.println(RED+"[===]"+RESET+"═╝");
     }
-
 
     /**
      *

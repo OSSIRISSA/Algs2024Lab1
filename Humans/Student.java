@@ -29,7 +29,6 @@ public class Student extends Human{
     public void setGroup(Integer group) {
         this.group = group;
     }
-
     @Override
     public String toString() {
         return super.toString() + (!isDeleted ? (", Course: " + course + ", Group: " + group+"\n") : "");
