@@ -43,7 +43,7 @@ public class University {
             ArrayActions.printStringCool(outputStr.toString(), 5);
 
             int option = DataInput.getInt();
-            if (option <= optionNumber - 3) {
+            if ((option <= optionNumber - 3) && (option>0)) {
                 faculties[option - 1].interaction();
             } else if (option == optionNumber - 2) {
                 this.displayAllStudents();
@@ -93,7 +93,7 @@ public class University {
             outputStr.append("\n" + ++optionNumber + ". Back ");
             ArrayActions.printStringCool(outputStr.toString(), 5);
             int option = DataInput.getInt();
-            if (option < optionNumber) {
+            if ((option < optionNumber)&& (option>0)) {
                 faculties[option - 1].name = DataInput.getString("New name for this faculty: ");
             } else if(option == optionNumber){
                 here = false;
@@ -117,7 +117,7 @@ public class University {
             outputStr.append("\n").append(++optionNumber).append(". Back ");
             ArrayActions.printStringCool(outputStr.toString(), 5);
             int option = DataInput.getInt();
-            if (option < optionNumber) {
+            if ((option < optionNumber)&& (option>0)) {
                 faculties[option-1].deleteFacultyHumans();
                 Faculty[] copyArray = new Faculty[faculties.length - 1];
                 System.arraycopy(faculties, 0, copyArray, 0, option-1);
@@ -137,7 +137,7 @@ public class University {
      * @throws IOException - exception
      */
     private void addNewFaculty() throws IOException {
-        faculties = ArrayActions.append(faculties, new Faculty(DataInput.getString("New faculty name:")));
+        faculties = ArrayActions.append(faculties, new Faculty(DataInput.getString("New faculty name: ")));
     }
 
     /**
@@ -152,11 +152,45 @@ public class University {
             switch (option) {
                 case 1 -> {
                     ArrayActions.printStringCool("Find a student by \n 1. Name \n 2. Course \n 3. Group", 5);
-                    int findBy = DataInput.getInt();
-                    this.printAllBy(DataInput.getString("Search: "), "student" ,findBy);
+                    int findBy;
+                    do {
+                        findBy = DataInput.getInt();
+                        if (findBy < 1 || findBy > 3) System.out.println("Please, select from 1 to 3.");
+                    } while (findBy < 1 || findBy > 3);
+                    switch (findBy){
+                        case 1-> {
+                            if(!this.printAllBy(DataInput.getString("Search: "), "student" ,findBy)){
+                                System.out.println("No students found");
+                            }
+                        }
+                        case 2 ->{
+                            int findRequest;
+                            do {
+                                findRequest = DataInput.getInt("Search: ");
+                                if (findRequest < 1 || findRequest > 4) System.out.println("Please, select course from 1 to 4.");
+                            } while (findRequest < 1 || findRequest > 4);
+                            if(!this.printAllBy(String.valueOf(findRequest), "student" ,findBy)){
+                                System.out.println("No students found");
+                            }
+                        }
+                        case 3 ->{
+                            int findRequest;
+                            do {
+                                findRequest = DataInput.getInt("Search: ");
+                                if (findRequest < 1 || findRequest > 6) System.out.println("Please, select group from 1 to 6.");
+                            } while (findRequest < 1 || findRequest > 6);
+                            if(!this.printAllBy(String.valueOf(findRequest), "student" ,findBy)){
+                                System.out.println("No students found");
+                            }
+                        }
+                        default -> System.out.println("Please, select from 1 to 3.");
+                    }
+
                 }
                 case 2 -> {
-                    this.printAllBy(DataInput.getString("Search: "), "teacher", 1);
+                    if(!this.printAllBy(DataInput.getString("Search: "), "teacher", 1)){
+                        System.out.println("No teachers found");
+                    }
                 }
                 case 3 -> here = false;
                 default -> System.out.println("Wrong option");
@@ -171,10 +205,16 @@ public class University {
      * @param who - student/teacher
      * @param i - 1.name/2.course/3.group
      */
-    private void printAllBy(String string, String who, int i) {
+    private boolean printAllBy(String string, String who, int i) {
+        boolean res = false;
         for(Faculty faculty: faculties){
-            faculty.facultyPrintAllBy(string, who, i);
+            if(!res){
+                res=faculty.facultyPrintAllBy(string, who, i);
+            } else {
+                faculty.facultyPrintAllBy(string, who, i);
+            }
         }
+        return res;
     }
 
     /**
@@ -182,9 +222,17 @@ public class University {
      */
     private void displayAllStudents() {
         for(int course = 1; course<=4; course++){
+            boolean res = false;
             System.out.println("COURSE "+course+":");
             for(Faculty faculty: faculties){
-                faculty.facultyPrintAllBy(String.valueOf(course), "student", 2);
+                if(!res){
+                    res = faculty.facultyPrintAllBy(String.valueOf(course), "student", 2);;
+                } else {
+                    faculty.facultyPrintAllBy(String.valueOf(course), "student", 2);
+                }
+            }
+            if (!res){
+                System.out.println("---");
             }
         }
     }

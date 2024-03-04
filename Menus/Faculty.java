@@ -40,7 +40,7 @@ public class Faculty extends University{
             ArrayActions.printStringCool(outputStr.toString(), 5);
 
             int option = DataInput.getInt();
-            if (option <= optionNumber - 3) {
+            if ((option <= optionNumber - 3)&& (option>0)) {
                 cathedra[option - 1].interaction();
             } else if (option == optionNumber - 2) {
                 this.displayAllByAlphabet();
@@ -53,10 +53,16 @@ public class Faculty extends University{
             }
         }
     }
-    public void facultyPrintAllBy(String string, String who, int i) {
+    public boolean facultyPrintAllBy(String string, String who, int i) {
+        boolean res = false;
         for(Cathedra cathedra0: cathedra){
-            cathedra0.cathedraPrintAllBy(string, who, i);
+            if(!res){
+                res=cathedra0.cathedraPrintAllBy(string, who, i);
+            } else {
+                cathedra0.cathedraPrintAllBy(string, who, i);
+            }
         }
+        return res;
     }
 
     @Override
@@ -100,7 +106,7 @@ public class Faculty extends University{
             outputStr.append("\n" + ++optionNumber + ". Back ");
             ArrayActions.printStringCool(outputStr.toString(), 5);
             int option = DataInput.getInt();
-            if (option < optionNumber) {
+            if ((option < optionNumber)&& (option>0)) {
                 cathedra[option - 1].name = DataInput.getString("New name for this cathedra: ");
             } else if(option == optionNumber){
                 here = false;
@@ -124,7 +130,7 @@ public class Faculty extends University{
             outputStr.append("\n" + ++optionNumber + ". Back ");
             ArrayActions.printStringCool(outputStr.toString(), 5);
             int option = DataInput.getInt();
-            if (option < optionNumber) {
+            if ((option < optionNumber)&& (option>0)) {
                 cathedra[option-1].deleteCathedraHumans();
                 Cathedra[] copyArray = new Cathedra[cathedra.length - 1];
                 System.arraycopy(cathedra, 0, copyArray, 0, option-1);
@@ -144,7 +150,7 @@ public class Faculty extends University{
      * @throws IOException - exception
      */
     private void addNewCathedra() throws IOException {
-        cathedra = ArrayActions.append(cathedra, new Cathedra(DataInput.getString("New cathedra name:")));
+        cathedra = ArrayActions.append(cathedra, new Cathedra(DataInput.getString("New cathedra name: ")));
     }
 
     /**
@@ -158,14 +164,28 @@ public class Faculty extends University{
             switch (option) {
                 case 1 -> {
                     Human.sortByNameUp(students);
+                    boolean res = false;
                     for (Student student : students){
                         System.out.print(student);
+                        if(!student.toString().isEmpty()){
+                            res = true;
+                        }
+                    }
+                    if(!res){
+                        System.out.println("---");
                     }
                 }
                 case 2 -> {
                     Human.sortByNameUp(teachers);
+                    boolean res = false;
                     for (Teacher teacher : teachers){
                         System.out.print(teacher);
+                        if(!teacher.toString().isEmpty()){
+                            res = true;
+                        }
+                    }
+                    if(!res){
+                        System.out.println("---");
                     }
                 }
                 case 3 -> here=false;

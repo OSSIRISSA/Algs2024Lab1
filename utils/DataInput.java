@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 public final class DataInput {
 
     public static Long getLong(String input) throws IOException{
-        System.out.println(input);
+        System.out.print(input);
         String s = getString();
         Long value = Long.valueOf(s);
         return value;
@@ -19,7 +19,7 @@ public final class DataInput {
     }
 
     public static char getChar(String input) throws IOException{
-        System.out.println(input);
+        System.out.print(input);
         String s = getString();
         return s.charAt(0);
     }
@@ -31,7 +31,7 @@ public final class DataInput {
 
     public static Integer getInt(String input){
         if (!input.isEmpty()) {
-            System.out.println(input);
+            System.out.print(input);
         }
         String s = "";
         try {
@@ -43,7 +43,7 @@ public final class DataInput {
         try {
             return Integer.valueOf(s);
         } catch (NumberFormatException e){
-            return getInt("It is not a number");
+            return getInt("It is not a number\n");
         }
     }
 
@@ -64,7 +64,7 @@ public final class DataInput {
 
     public static Double getDouble(String input){
         if (!input.isEmpty()) {
-            System.out.println(input);
+            System.out.print(input);
         }
         String s = "";
         try {
@@ -75,7 +75,7 @@ public final class DataInput {
         try {
             return Double.valueOf(s);
         } catch (NumberFormatException e){
-            return getDouble("It is not an Integer");
+            return getDouble("It is not a");
         }
     }
 
@@ -95,7 +95,7 @@ public final class DataInput {
     }
 
     public static String getString(String input) throws IOException{
-        System.out.println(input);
+        System.out.print(input);
         InputStreamReader isr = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(isr);
         String s = br.readLine();

@@ -44,17 +44,21 @@ public class Cathedra extends Faculty{
             }
         }
     }
-    public void cathedraPrintAllBy(String string, String who, int i) {
+    public boolean cathedraPrintAllBy(String string, String who, int i) {
+        boolean res = false;
         if(Objects.equals(who, "student")){
             for(Student student: students){
                 if((i==1)&&(student.getName().contains(string))){
                     System.out.print(student);
+                    res = true;
                 }
                 else if((i==2)&&(Objects.equals(student.getCourse(), Integer.valueOf(string)))){
                     System.out.print(student);
+                    res = true;
                 }
                 else if((i==3)&&(Objects.equals(student.getGroup(), Integer.valueOf(string)))){
                     System.out.print(student);
+                    res = true;
                 }
             }
         }
@@ -62,9 +66,11 @@ public class Cathedra extends Faculty{
             for(Teacher teacher: teachers) {
                 if (teacher.getName().contains(string)) {
                     System.out.print(teacher);
+                    res = true;
                 }
             }
         }
+        return res;
     }
 
     /**
@@ -73,7 +79,9 @@ public class Cathedra extends Faculty{
     private void displayAll() {
         for(int course = 1; course<=4; course++){
             System.out.println("COURSE "+course+":");
-            this.cathedraPrintAllBy(String.valueOf(course), "student", 2);
+            if(!this.cathedraPrintAllBy(String.valueOf(course), "student", 2)){
+                System.out.println("---");
+            }
         }
     }
 
@@ -111,14 +119,28 @@ public class Cathedra extends Faculty{
             switch (option) {
                 case 1 -> {
                     Human.sortByNameUp(students);
+                    boolean res = false;
                     for (Student student : students){
                         System.out.print(student);
+                        if(!student.toString().isEmpty()){
+                            res = true;
+                        }
+                    }
+                    if(!res){
+                        System.out.println("---");
                     }
                 }
                 case 2 -> {
                     Human.sortByNameUp(teachers);
+                    boolean res = false;
                     for (Teacher teacher : teachers){
                         System.out.print(teacher);
+                        if(!teacher.toString().isEmpty()){
+                            res = true;
+                        }
+                    }
+                    if(!res){
+                        System.out.println("---");
                     }
                 }
                 case 3 -> here=false;
@@ -133,11 +155,13 @@ public class Cathedra extends Faculty{
     private void displayAllOfCourse() {
         boolean here = true;
         while (here) {
-            ArrayActions.printStringCool("Display \n 1. Course 1 \n 2. Course 2 \n 3. Course 3 \n 4. Course 4 \n \n 3. Back", 5);
+            ArrayActions.printStringCool("Display \n 1. Course 1 \n 2. Course 2 \n 3. Course 3 \n 4. Course 4 \n \n 5. Back", 5);
             int option = DataInput.getInt();
             Human.sortByNameUp(students);
-            if(option<=4){
-                this.cathedraPrintAllBy(String.valueOf(option),"student", 2);
+            if((option<=4)&& (option>0)){
+                if(!this.cathedraPrintAllBy(String.valueOf(option),"student", 2)){
+                    System.out.println("---");
+                }
             } else if(option==5){
                 here = false;
             } else {
@@ -159,6 +183,7 @@ public class Cathedra extends Faculty{
             switch (option) {
                 case 1 -> this.changeStudents();
                 case 2 -> this.changeTeachers();
+                case 3 -> here =false;
                 default -> System.out.println("Wrong option");
             }
         }
@@ -211,9 +236,9 @@ public class Cathedra extends Faculty{
      */
     private void addHuman(String who) throws IOException {
         if(who.equals("student")){
-            students = ArrayActions.append(students, new Student(DataInput.getString("New student name:"), DataInput.getInt("New student course:"), DataInput.getInt("New student group:")));
+            students = ArrayActions.append(students, new Student(DataInput.getString("New student name: "), DataInput.getInt("New student course: "), DataInput.getInt("New student group: ")));
         } else{
-            teachers = ArrayActions.append(teachers, new Teacher(DataInput.getString("New teacher name:")));
+            teachers = ArrayActions.append(teachers, new Teacher(DataInput.getString("New teacher name: ")));
         }
     }
 
@@ -234,7 +259,7 @@ public class Cathedra extends Faculty{
                 outputStr.append("\n" + ++optionNumber + ". Back ");
                 ArrayActions.printStringCool(outputStr.toString(), 5);
                 int option = DataInput.getInt();
-                if (option < optionNumber) {
+                if ((option < optionNumber)&& (option>0)) {
                     ArrayActions.printStringCool(" 1. Change name \n 2. Change course \n 3. Change group", 5);
                     int whatToChange = DataInput.getInt();
                     switch (whatToChange){
@@ -257,7 +282,7 @@ public class Cathedra extends Faculty{
                 outputStr.append("\n" + ++optionNumber + ". Back ");
                 ArrayActions.printStringCool(outputStr.toString(), 5);
                 int option = DataInput.getInt();
-                if (option < optionNumber) {
+                if ((option < optionNumber)&& (option>0)) {
                     teachers[option - 1].setName(DataInput.getString("New name for this teacher: "));
                 } else if(option == optionNumber){
                     here = false;
@@ -284,7 +309,8 @@ public class Cathedra extends Faculty{
                 outputStr.append("\n").append(++optionNumber).append(". Back ");
                 ArrayActions.printStringCool(outputStr.toString(), 5);
                 int option = DataInput.getInt();
-                if (option < optionNumber) {
+                if ((option < optionNumber)&& (option>0)) {
+                    students[option-1].setDeleted(true);
                     Student[] copyArray = new Student[students.length - 1];
                     System.arraycopy(students, 0, copyArray, 0, option-1);
                     System.arraycopy(students, option, copyArray, option-1, students.length-option);
@@ -303,7 +329,8 @@ public class Cathedra extends Faculty{
                 outputStr.append("\n").append(++optionNumber).append(". Back ");
                 ArrayActions.printStringCool(outputStr.toString(), 5);
                 int option = DataInput.getInt();
-                if (option < optionNumber) {
+                if ((option < optionNumber)&& (option>0)) {
+                    teachers[option-1].setDeleted(true);
                     Teacher[] copyArray = new Teacher[students.length - 1];
                     System.arraycopy(teachers, 0, copyArray, 0, option-1);
                     System.arraycopy(teachers, option, copyArray, option-1, teachers.length-option);
