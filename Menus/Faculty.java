@@ -17,6 +17,7 @@ public class Faculty extends University{
     public Faculty(){}
     public Faculty(String name) {
         this.name=name;
+        this.cathedra = new Cathedra[0];
     }
     public Faculty(String name, Cathedra[] cathedra) {
         this.name=name;
@@ -34,9 +35,9 @@ public class Faculty extends University{
             StringBuilder outputStr = new StringBuilder("Faculty " +this.name +" menu");
             int optionNumber = 0;
             for (Cathedra cathedra1:cathedra) {
-                outputStr.append("\n" + ++optionNumber + ". Cathedra menu ").append(cathedra1.name);
+                outputStr.append("\n").append(++optionNumber).append(". Cathedra menu ").append(cathedra1.name);
             }
-            outputStr.append("\n \n" + ++optionNumber + ". Display all students/teachers sorted by alphabet" + "\n" + ++optionNumber + ". Make changes in cathedra" + "\n" + ++optionNumber + ". Back");
+            outputStr.append("\n \n").append(++optionNumber).append(". Display all students/teachers sorted by alphabet").append("\n").append(++optionNumber).append(". Make changes in cathedra").append("\n").append(++optionNumber).append(". Back");
             ArrayActions.printStringCool(outputStr.toString(), 5);
 
             int option = DataInput.getInt();
@@ -101,9 +102,9 @@ public class Faculty extends University{
             StringBuilder outputStr = new StringBuilder("Choose cathedra you want to change " + name);
             int optionNumber = 0;
             for (Cathedra cathedra0: cathedra) {
-                outputStr.append("\n" + ++optionNumber + ". Cathedra ").append(cathedra0.name);
+                outputStr.append("\n").append(++optionNumber).append(". Cathedra ").append(cathedra0.name);
             }
-            outputStr.append("\n" + ++optionNumber + ". Back ");
+            outputStr.append("\n").append(++optionNumber).append(". Back ");
             ArrayActions.printStringCool(outputStr.toString(), 5);
             int option = DataInput.getInt();
             if ((option < optionNumber)&& (option>0)) {
@@ -132,9 +133,9 @@ public class Faculty extends University{
             StringBuilder outputStr = new StringBuilder("Choose cathedra you want to delete " + name);
             int optionNumber = 0;
             for (Cathedra cathedra0: cathedra) {
-                outputStr.append("\n" + ++optionNumber + ". Cathedra ").append(cathedra0.name);
+                outputStr.append("\n").append(++optionNumber).append(". Cathedra ").append(cathedra0.name);
             }
-            outputStr.append("\n" + ++optionNumber + ". Back ");
+            outputStr.append("\n").append(++optionNumber).append(". Back ");
             ArrayActions.printStringCool(outputStr.toString(), 5);
             int option = DataInput.getInt();
             if ((option < optionNumber)&& (option>0)) {

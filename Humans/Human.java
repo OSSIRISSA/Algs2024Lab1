@@ -7,8 +7,13 @@ public class Human {
     protected String name;
     protected Cathedra cathedra;
     protected Faculty faculty;
-
     protected boolean isDeleted;
+
+    /**
+     * Constructor
+     *
+     * @param name  - Name of human
+     */
     public Human(String name){
         this.name = name;
     }
@@ -21,30 +26,25 @@ public class Human {
         this.name = name;
     }
 
-    public Cathedra getCathedra() {
-        return cathedra;
-    }
-
-    public void setCathedra(Cathedra cathedra) {
+    public Human setCathedra(Cathedra cathedra) {
         this.cathedra = cathedra;
+        return this;
     }
 
-    public Faculty getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(Faculty faculty) {
+    public Human setFaculty(Faculty faculty) {
         this.faculty = faculty;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
+        return this;
     }
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
     }
 
+    /**
+     * Sort array of humans by alphabet
+     *
+     * @param array     - In array of humans
+     */
     public static void sortByNameUp(Human[] array){
         int currentPosition = 0;
 
@@ -62,25 +62,6 @@ public class Human {
                 currentPosition++;
             }
 
-        }
-    }
-
-
-    public static void sortByNameDown(Human[] array){
-        int currentPosition = 0;
-
-        while (currentPosition < array.length - 1) {
-            if (array[currentPosition].getName().compareTo(array[currentPosition + 1].getName())<0) {
-
-                Human temp = array[currentPosition];
-                array[currentPosition] = array[currentPosition + 1];
-                array[currentPosition + 1] = temp;
-                if (currentPosition > 0) {
-                    currentPosition--;
-                }
-            } else {
-                currentPosition++;
-            }
         }
     }
 

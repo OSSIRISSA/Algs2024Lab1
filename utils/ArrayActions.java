@@ -1,24 +1,18 @@
 package utils;
-
-import Humans.Student;
-import Menus.Faculty;
-
-import java.io.IOException;
 import java.lang.reflect.Array;
 
 public class ArrayActions {
 
     private final static String RESET = "\u001B[0m";
     private final static String RED = "\u001B[31m";
-    String GREEN = "\u001B[32m";
-    String YELLOW = "\u001B[33m";
 
+    /**
+     * Draw cool frame around formatted text
+     *
+     * @param input     - In string with \n
+     * @param margin    - Margin from one side
+     */
     public static void printStringCool(String input, int margin){
-
-
-        //System.out.println("\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n ");
-
-
         String[] lines = input.split("\n");
 
         int maxLength=0;
@@ -29,7 +23,8 @@ public class ArrayActions {
         }
 
         System.out.print("╔═"+RED+"[===]"+RESET);
-        for (int i=0; i<Math.max(maxLength+margin*2-12,1); i++){
+        int minSpacesAmount = Math.max(maxLength + margin * 2 - 12, 1);
+        for (int i = 0; i< minSpacesAmount; i++){
             System.out.print("═");
         }
         System.out.println(RED+"[===]"+RESET+"═╗");
@@ -48,13 +43,21 @@ public class ArrayActions {
         }
 
         System.out.print("╚═"+RED+"[===]"+RESET);
-        for (int i=0; i<Math.max(maxLength+margin*2-12,1); i++){
+        for (int i = 0; i< minSpacesAmount; i++){
             System.out.print("═");
         }
         System.out.println(RED+"[===]"+RESET+"═╝");
     }
 
 
+    /**
+     *
+     *
+     * @param array     - Array of type <T> that we want to append to
+     * @param element   - Element of type <T> that we want to append
+     * @return          - New array with appended element
+     * @param <T>       - Array type
+     */
     public static <T> T[] append(T[] array, T element) {
         T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
         System.arraycopy(array, 0, newArray, 0, array.length);
